@@ -6,7 +6,7 @@ class SleepRecordsController < ApplicationController
     existing_record = current_user.sleep_records.where(clock_out: nil).lock("FOR UPDATE").first
 
     if existing_record
-      render json: { error: "clock-out process required for current active clock-in session" }, status: :unprocessable_entity
+      render json: { status: :bad_request, error: "clock-out process required for current active clock-in session" }, status: :bad_request
     else
       sleep_record = current_user.sleep_records.create!(clock_in: Time.current)
       render json: sleep_record, status: :created
@@ -17,7 +17,7 @@ class SleepRecordsController < ApplicationController
     # retrieve active clock-in session and lock it for update
     sleep_record = current_user.sleep_records.where(clock_out: nil).order(created_at: :desc).lock("FOR UPDATE").first
     if sleep_record.nil?
-      return render json: { error: "no active clock-in session found." }, status: :not_found
+      return render json: { status: :not_found, error:  "no active clock-in session found"  }, status: :not_found
     end
 
     sleep_record.update!(clock_out: Time.current, duration: Time.current - sleep_record.clock_in)
