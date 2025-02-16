@@ -1,21 +1,23 @@
 Rails.application.routes.draw do
-  get "followings/sleep_records"
-  get "follows/create"
-  get "follows/destroy"
-  get "sleep_records/create"
-  get "sleep_records/update"
-  get "sleep_records/index"
-  mount_devise_token_auth_for 'User', at: 'auth'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  mount_devise_token_auth_for "User", at: "auth"
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+  # Follow/Unfollow Users
+  resources :users, only: [] do
+    member do
+      post "follow", to: "follows#create"
+      delete "unfollow", to: "follows#destroy"
+    end
+  end
 
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+  # Sleep Records
+  resources :sleep_records, only: [ :index ] do
+    collection do
+      post "clock_in", to: "sleep_records#create"
+      patch "clock_out", to: "sleep_records#update"
+      get "friends", to: "followings#sleep_records"
+    end
+  end
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  # Health Check
+  get "up", to: "rails/health#show", as: :rails_health_check
 end
