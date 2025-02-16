@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get "followings/sleep_records"
+  get "follows/create"
+  get "follows/destroy"
+  get "sleep_records/create"
+  get "sleep_records/update"
+  get "sleep_records/index"
   mount_devise_token_auth_for 'User', at: 'auth'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
