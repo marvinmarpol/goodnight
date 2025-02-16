@@ -63,3 +63,11 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "dotenv-rails"
+gem "devise"
+gem "devise_token_auth"
+gem "faker"
+gem "pagy"
+gem "rspec-rails", group: [ :development, :test ]
+gem "factory_bot_rails", group: [ :development, :test ]
