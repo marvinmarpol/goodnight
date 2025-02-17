@@ -27,7 +27,7 @@ class SleepRecordsController < ApplicationController
 
   def index
     pagy, sleep_records = pagy(current_user.sleep_records.order(created_at: :desc))
-    render json: { sleep_records: sleep_records,
+    render json: { data: sleep_records,
       pagination: {
         total: pagy.count,
         current_page: pagy.page,
