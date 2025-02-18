@@ -19,11 +19,20 @@ A sleep tracking API that allows users to log sleep records by clocking-in and c
    ```sh
    bundle install
    ```
-3. Set up the database:
+3. Set environment variables on `.env`
+   ```sh
+   DB_NAME=goodnight
+   DB_NAME_TEST=goodnight_test
+   DB_USERNAME=username
+   DB_PASSWORD=password
+   DB_HOST=localhost
+   DB_PORT=5432
+   ```
+4. Set up the database:
    ```sh
    rails db:create db:migrate db:seed
    ```
-4. Start the server:
+5. Start the server:
    ```sh
    rails s
    ```
@@ -154,8 +163,3 @@ To run tests, execute:
 ```sh
 bundle exec rspec
 ```
-
-## Configuration
-
-Environment variables can be set in `.env`.
-
