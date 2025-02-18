@@ -71,3 +71,4 @@ gem "faker"
 gem "pagy"
 gem "rspec-rails", group: [ :development, :test ]
 gem "factory_bot_rails", group: [ :development, :test ]
+gem "redis", ">= 4.0.1"
